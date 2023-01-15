@@ -1,11 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:provider/provider.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:window_manager/window_manager.dart';
 import 'theme.dart';
+import 'github/auth.dart';
 
-void main() {
-  runApp(const DokiDoki());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = const WindowOptions(
+    titleBarStyle: TitleBarStyle.hidden,
+    minimumSize: Size(800, 600),
+  );
+  final prefs = await SharedPreferences.getInstance();
+  // prefs.remove('token');
+  final token = prefs.getString('token');
+  windowManager.waitUntilReadyToShow(windowOptions);
+  if (token == null) {
+    var client = await GithubAuth.getOAuth2Client();
+    prefs.setString('token', client.credentials.accessToken);
+    windowManager.show();
+    runApp(const DokiDoki());
+  } else {
+    windowManager.show();
+    runApp(const DokiDoki());
+  }
 }
 
 // DokiDoki is a Github Client for MacOS
@@ -40,6 +60,21 @@ class StartDokiDoki extends StatefulWidget {
 
 class _StartDokiDokiState extends State<StartDokiDoki> {
   int pageIndex = 0;
+  String? token;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadToken();
+  }
+
+  // Load the token from the shared preferences
+  Future<void> _loadToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString('token');
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +98,7 @@ class _StartDokiDokiState extends State<StartDokiDoki> {
               placeholder: 'Search Repositories',
             ),
             minWidth: 200,
+            topOffset: 30,
             builder: (context, scrollController) {
               return SidebarItems(
                 currentIndex: pageIndex,
@@ -78,8 +114,11 @@ class _StartDokiDokiState extends State<StartDokiDoki> {
           ),
           child: IndexedStack(
             index: pageIndex,
-            children: const [
-              Center(child: Text('Repositories')),
+            children: [
+              Center(child: Text('Repos Screen. Token: $token')),
+              const Center(child: Text('Pulls Screen.')),
+              const Center(child: Text('Issues Screen.')),
+              const Center(child: Text('Gists Screen.')),
             ],
           )),
     );
