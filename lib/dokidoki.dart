@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'theme.dart';
 import 'views/views.dart';
-import '../github/profile.dart';
+import 'github/profile.dart';
 import 'package:github/github.dart';
 
 // DokiDoki is a Github Client for MacOS

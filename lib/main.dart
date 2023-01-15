@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
-import 'dokidoki/dokidoki.dart';
+import 'dokidoki.dart';
 import 'github/auth.dart';
 
 Future<void> main() async {
