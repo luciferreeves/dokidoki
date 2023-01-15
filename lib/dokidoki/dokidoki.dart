@@ -160,9 +160,15 @@ class MainApp extends StatelessWidget {
               onClick: () => showMacosAlertDialog(
                 context: context,
                 builder: (context) => MacosAlertDialog(
-                  appIcon: const FlutterLogo(
-                    size: 56,
-                  ),
+                  appIcon: avatarUrl.isNotEmpty
+                      ? CircleAvatar(
+                          backgroundImage: NetworkImage(avatarUrl),
+                          maxRadius: 32,
+                        )
+                      : const MacosIcon(
+                          CupertinoIcons.profile_circled,
+                          size: 64,
+                        ),
                   title: const Text(
                     'Not Implemented Yet',
                   ),
