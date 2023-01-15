@@ -133,6 +133,7 @@ class MainApp extends StatelessWidget {
             minWidth: 200,
             isResizable: false,
             startWidth: 200,
+            // topOffset: 20,
             builder: (context, scrollController) {
               return SidebarItems(
                 currentIndex: pageIndex,
@@ -187,7 +188,7 @@ class MainApp extends StatelessWidget {
           ),
           child: IndexedStack(
             index: pageIndex,
-            children: getViews(token),
+            children: views
           )),
     );
   }

@@ -1,10 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
+import 'repos.dart';
 
-getViews(token) {
-  return [
-    Center(child: Text('Repos Screen. Token: $token')),
-    const Center(child: Text('Pulls Screen.')),
-    const Center(child: Text('Issues Screen.')),
-    const Center(child: Text('Gists Screen.')),
-  ];
-}
+final List<Widget> views = [
+  CupertinoTabView(
+    builder: (context) => const RepositoriesPage(), 
+  )
+];
