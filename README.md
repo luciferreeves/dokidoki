@@ -1,3 +1,4 @@
+![DokiDoki Banner](static/dokidoki_banner.png)
 # dokidoki
 
 A new Flutter project.
