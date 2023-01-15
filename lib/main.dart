@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:provider/provider.dart';
@@ -14,18 +15,19 @@ Future<void> main() async {
     minimumSize: Size(800, 600),
   );
   final prefs = await SharedPreferences.getInstance();
-  // prefs.remove('token');
+  prefs.remove('token');
   final token = prefs.getString('token');
   windowManager.waitUntilReadyToShow(windowOptions);
   if (token == null) {
     var client = await GithubAuth.getOAuth2Client();
-    prefs.setString('token', client.credentials.accessToken);
-    windowManager.show();
-    runApp(const DokiDoki());
-  } else {
-    windowManager.show();
-    runApp(const DokiDoki());
+    if (client.credentials.accessToken != 'null') {
+      prefs.setString('token', client.credentials.accessToken);
+    } else {
+      exit(0);
+    }
   }
+  windowManager.show();
+  runApp(const DokiDoki());
 }
 
 // DokiDoki is a Github Client for MacOS
