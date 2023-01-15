@@ -9,8 +9,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = const WindowOptions(
-    titleBarStyle: TitleBarStyle.hidden,
-    minimumSize: Size(800, 600),
+    size: Size(1024, 600),
+    minimumSize: Size(1024, 600),
   );
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('token');

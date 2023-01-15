@@ -71,11 +71,9 @@ class _StartDokiDokiState extends State<StartDokiDoki> {
       ],
       child: MacosWindow(
           sidebar: Sidebar(
-            top: const MacosSearchField(
-              placeholder: 'Search Repositories',
-            ),
             minWidth: 200,
-            topOffset: 30,
+            isResizable: false,
+            startWidth: 200,
             builder: (context, scrollController) {
               return SidebarItems(
                 currentIndex: pageIndex,
