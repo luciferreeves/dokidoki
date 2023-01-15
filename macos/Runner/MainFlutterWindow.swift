@@ -77,6 +77,11 @@ class MainFlutterWindow: NSWindow, NSWindowDelegate {
   func windowDidExitFullScreen(_ notification: Notification) {
       self.toolbar?.isVisible = true
   }
+
+   override public func order(_ place: NSWindow.OrderingMode, relativeTo otherWin: Int) {
+    super.order(place, relativeTo: otherWin)
+    hiddenWindowAtLaunch()
+  }
 }
 
 // class MainFlutterWindow: NSWindow {
