@@ -1,6 +1,5 @@
 import Cocoa
 import FlutterMacOS
-import window_manager
 
 class BlurryContainerViewController: NSViewController {
   let flutterViewController = FlutterViewController()
@@ -43,17 +42,18 @@ class MainFlutterWindow: NSWindow, NSWindowDelegate {
     self.contentViewController = blurryContainerViewController
     self.setFrame(windowFrame, display: true)
 
-    // if #available(macOS 10.13, *) {
-    //   let customToolbar = NSToolbar()
-    //   customToolbar.showsBaselineSeparator = false
-    //   self.toolbar = customToolbar
-    // }
+    if #available(macOS 10.13, *) {
+      let customToolbar = NSToolbar()
+      customToolbar.showsBaselineSeparator = false
+      self.toolbar = customToolbar
+    }
+
     self.titleVisibility = .hidden
     self.titlebarAppearsTransparent = true
-    // if #available(macOS 11.0, *) {
-    //   // Use .expanded if the app will have a title bar, else use .unified
-    //   self.toolbarStyle = .unified
-    // }
+    if #available(macOS 11.0, *) {
+      // Use .expanded if the app will have a title bar, else use .unified
+      self.toolbarStyle = .unified
+    }
 
     self.isMovableByWindowBackground = true
     self.styleMask.insert(NSWindow.StyleMask.fullSizeContentView)
@@ -67,6 +67,7 @@ class MainFlutterWindow: NSWindow, NSWindowDelegate {
   }
 
   func window(_ window: NSWindow, willUseFullScreenPresentationOptions proposedOptions: NSApplication.PresentationOptions = []) -> NSApplication.PresentationOptions {
+    // Hides the toolbar when in fullscreen mode
     return [.autoHideToolbar, .autoHideMenuBar, .fullScreen]
   }
 
@@ -76,10 +77,5 @@ class MainFlutterWindow: NSWindow, NSWindowDelegate {
   
   func windowDidExitFullScreen(_ notification: Notification) {
       self.toolbar?.isVisible = true
-  }
-
-   override public func order(_ place: NSWindow.OrderingMode, relativeTo otherWin: Int) {
-    super.order(place, relativeTo: otherWin)
-    hiddenWindowAtLaunch()
   }
 }
