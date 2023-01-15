@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 
 ## Credits
-- [Icon created by Bubun_Design](https://www.flaticon.com/authors/bubun-design)
+- Icon created by [Bubun_Design](https://www.flaticon.com/authors/bubun-design)
