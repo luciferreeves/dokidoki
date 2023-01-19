@@ -131,7 +131,7 @@ class MainApp extends StatelessWidget {
       child: MacosWindow(
           sidebar: Sidebar(
             minWidth: 200,
-            isResizable: false,
+            // isResizable: false,
             startWidth: 200,
             topOffset: 40,
             builder: (context, scrollController) {
